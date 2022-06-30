@@ -1,0 +1,21 @@
+variables:
+    {%player%::mountowned} = false
+command /spawnmount:
+    trigger:
+        if {%player%::mountowned} = true:
+            spawn a horse at location of player
+            set name of last spawned horse to "&e%player%'s Mount"
+            equip last spawned horse with a saddle
+            set the tamer of last spawned horse to player
+            make player ride last spawned horse
+        else:
+            message "&cYou don't own a mount!" to player
+command /unlockmount:
+    trigger:
+        set {%player%::mountowned} to true
+on dismount:
+    kill all entities in radius 30 of player where [name of entity input is "&e%player%'s mount"]
+on death:
+    if name of victim contains "mount":
+        clear drops
+    # forgot to add a check to ensure its not a player but too lazy
