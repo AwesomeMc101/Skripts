@@ -1,0 +1,31 @@
+#Written By AwesomeMc101
+
+variables:
+    # SET YOURSELF
+    
+    {maxClick} = 0 # change in the on load: (Line 21/22)
+    
+    # AUTOMATIC VARIABLES
+    {%player%::recentSwings} = 0
+    {%player%::swingDetections} = 0
+    
+# SCANNERS
+function swingScan(P: Player):
+    if {%{_P}%::recentSwings} >= {maxClick}:
+        add 1 to {%{_P}%::swingDetections}
+        message "&cPlease disable your autoclicker or you will be banned." to {_P}
+        if {%{_P}%::swingDetections} >= 3:
+            make console execute "tempban %{_P}% 31d Autoclicking"
+            set {%{_P}%::swingDetections} to 0
+            
+on load:
+    set {maxClick} to 70
+
+# EVENTS
+on arm swing:
+    add 1 to {%player%::recentSwings}
+
+every 3 seconds:
+    loop all players:
+        swingScan(loop-player)
+        set {%loop-player%::recentSwings} to 0
