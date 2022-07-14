@@ -1,0 +1,48 @@
+variables:
+    {%player%::betterarmorstandselect} = 0
+on inventory click:
+    if event-inventory = (metadata tag "BetterArmorStandGUI" of player):
+        if event-slot is not 13 or 22 or 31 or 40 or 21 or 23:
+            cancel event
+        if player is not a op:
+            cancel event
+on inventory close:
+    if event-inventory = (metadata tag "BetterArmorStandGUI" of player):
+        if player is a op:
+            set {%player%::betterarmorstandselect}'s helmet to slot 13 of metadata tag "BetterArmorStandGUI" of player
+            message slot 13 of metadata tag "BetterArmorStandGUI" of {_P} to player
+            set {%player%::betterarmorstandselect}'s chestplate to slot 22 of metadata tag "BetterArmorStandGUI" of player
+            set {%player%::betterarmorstandselect}'s leggings to slot 31 of metadata tag "BetterArmorStandGUI" of player
+            set {%player%::betterarmorstandselect}'s boots to slot 40 of metadata tag "BetterArmorStandGUI" of player
+            set {%player%::betterarmorstandselect}'s held item to slot 21 of metadata tag "BetterArmorStandGUI" of player
+            set {%player%::betterarmorstandselect}'s offhand item to slot 23 of metadata tag "BetterArmorStandGUI" of player
+function BetterArmorStandGUIOpener(P: Player, AR: Entity):
+    set metadata tag "BetterArmorStandGUI" of {_P} to chest inventory with 6 rows named "Armor Stand"
+    set slot 0 and 1 and 2 and 3 and 4 and 5 and 6 and 7 and 8 and 9 and 10 and 11 and 12 and 13 and 14 and 15 and 16 and 17 and 18 and 19 and 20 and 21 and 22 and 23 and 24 and 25 and 26 and 27 and 28 and 29 and 30 and 31 and 32 and 33 and 34 and 35 and 36 and 37 and 38 and 39 and 40 and 41 and 42 and 43 and 44 and 45 and 46 and 47 and 48 and 49 and 50 and 51 and 52 and 53 of metadata tag "BetterArmorStandGUI" of {_P} to gray stained glass pane named "&7 "
+    
+    set {%{_P}%::betterarmorstandselect} to {_AR}
+    
+    set {_Helmet} to {_AR}'s helmet
+    set slot 13 of metadata tag "BetterArmorStandGUI" of {_P} to {_Helmet} 
+    
+    set {_Chestplate} to {_AR}'s chestplate
+    set slot 22 of metadata tag "BetterArmorStandGUI" of {_P} to {_Chestplate} 
+    
+    set {_Hand} to {_AR}'s held item
+    set slot 21 of metadata tag "BetterArmorStandGUI" of {_P} to {_Hand}
+    
+    set {_OffHand} to {_AR}'s offhand item
+    set slot 23 of metadata tag "BetterArmorStandGUI" of {_P} to {_OffHand}
+    
+    set {_Leggings} to {_AR}'s leggings
+    set slot 31 of metadata tag "BetterArmorStandGUI" of {_P} to {_Leggings} 
+    
+    set {_Boots} to {_AR}'s boots
+    set slot 40 of metadata tag "BetterArmorStandGUI" of {_P} to {_Boots} 
+    
+    open metadata tag "BetterArmorStandGUI" of {_P} to {_P}
+
+on rightclick on entity:
+    if entity is armor stand:
+        cancel event
+        BetterArmorStandGUIOpener(Player, event-entity)
